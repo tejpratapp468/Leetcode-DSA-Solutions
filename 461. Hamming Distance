@@ -1,0 +1,32 @@
+//XOR Approach
+class Solution {
+public:
+    int hammingDistance(int x, int y) {
+        int ans=0;
+        while(x || y){
+            int bit1=x&1; //rightmost bit of x
+            int bit2=y&1;
+            if(bit1!=bit2) ans++;
+            x>>=1; //x/=2; //x=x/2
+            y>>=1; //y/=2;
+        }
+        return ans;
+    }
+};
+
+//Simple Approach
+class Solution {
+public:
+    //TC O(max(log(x),log(y)))
+    int hammingDistance(int x, int y) {
+        int ans=0;
+        while(x || y){
+            int bit1=x&1; //rightmost bit of x
+            int bit2=y&1;
+            if(bit1!=bit2) ans++;
+            x>>=1; //x/=2; //x=x/2
+            y>>=1; //y/=2;
+        }
+        return ans;
+    }
+};

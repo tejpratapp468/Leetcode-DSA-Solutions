@@ -1,0 +1,48 @@
+//Optimal Solution 
+class Solution {
+public:
+    //TC O(logn)
+    //SC O(1)
+    int singleNonDuplicate(vector<int>& nums) {
+        int n=nums.size();
+        int ans=-1;
+        int l=0,r=n-1;
+        
+        while(l<=r){
+            int mid=l+(r-l)/2; //(l+r)/2
+            if((mid<n-1 && mid%2==0 && nums[mid]==nums[mid+1]) || 
+               (mid%2==1 && nums[mid]==nums[mid-1]) ) {
+                l=mid+1;
+            }
+            
+            else {
+                ans=nums[mid];r=mid-1;
+            }
+        }
+        
+        return ans;
+        
+    }
+};
+
+
+
+//Naive Solution
+class Solution {
+public:
+    //TC O(n)
+    //SC O(1)
+    int singleNonDuplicate(vector<int>& nums) {
+        int n=nums.size();
+        int ans=-1;
+        for(int i=0;i<n-1;i++){
+            if(nums[i]!=nums[i+1]){
+                ans=nums[i];break;
+            }
+            else i++;
+        }
+        if(ans==-1) ans=nums[n-1]; //[1,1,2,2,3]
+        return ans;
+        
+    }
+};

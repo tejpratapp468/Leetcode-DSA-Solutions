@@ -1,7 +1,7 @@
 //Optimal Solution using Hashing
 class RangeFreqQuery {
 public:
-//Time Complexity O(q*log(n)) q=number of queries
+//Time Complexity O(n + q*log(n)) q=number of queries, n=number of elements in vector arr
     unordered_map<int,vector<int>> mp;
     RangeFreqQuery(vector<int>& arr) {
         for(int i=0;i<arr.size();i++){

@@ -1,0 +1,25 @@
+class Solution {
+public:
+    //TC O(n)
+    //SC O(n)
+    unordered_map<int,int> mp;
+    int idx=0;
+    TreeNode* helper(int l,int r,vector<int>& inorder,vector<int>& post){
+        if(idx<0 || l>r){
+            return NULL;
+        }
+        int data=post[idx--];
+        TreeNode* root=new TreeNode(data);
+        int partition=mp[data];
+        root->right=helper(partition+1,r,inorder,post);
+        root->left=helper(l,partition-1,inorder,post);
+        return root;
+    }
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+        int n=inorder.size();
+        for(int i=0;i<n;i++) mp[inorder[i]]=i;
+        idx=n-1;
+        TreeNode* ans=helper(0,n-1,inorder,postorder);
+        return ans;
+    }
+};

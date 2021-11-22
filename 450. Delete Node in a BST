@@ -1,0 +1,38 @@
+class Solution {
+public:
+    //TC O(h) worst O(n) //best O(logn) //h=height of tree
+    //SC O(1)
+    TreeNode* findmin(TreeNode* root)
+    {
+        while(root->left!=NULL) root=root->left;
+        return root;
+    }
+    TreeNode* deleteNode(TreeNode* root, int k) {
+        if(!root) return root;
+        
+        if(root->val>k)  root->left=deleteNode(root->left,k); //searching the node
+        else if(root->val<k)  root->right=deleteNode(root->right,k); //searching the node
+        else
+        {
+            TreeNode* temp=NULL;
+            if(!root->left && !root->right)
+            {
+                root=NULL;
+            }
+            else if(root->left==NULL){
+               temp=root;root=root->right;
+                delete(temp);
+            }
+            else if(root->right==NULL){
+                temp=root;root=root->left;
+                delete(temp);
+            }
+            else{
+              TreeNode* temp=findmin(root->right);//inorder succeessor
+              root->val=temp->val;
+              root->right=deleteNode(root->right,temp->val);    
+            }
+        }
+        return root;
+    }
+};

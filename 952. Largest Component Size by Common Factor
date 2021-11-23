@@ -1,0 +1,82 @@
+//Optimal Solution using DSU
+
+class Solution {
+public:
+    //TC O(n*sqrt(mx))
+    //SC O(mx)
+    vector<int> par;
+    int find(int p){
+        if(par[p]==p) return p;
+        return par[p]=find(par[p]);
+    }
+    void Union(int p1,int p2)
+    {
+        int par1=find(p1),par2=find(p2);
+        par[par1]=par2; //np=fp
+    }
+    int largestComponentSize(vector<int>& nums) {
+        int mx=0,n=nums.size();
+        for(int i=0;i<n;i++) mx=max(mx,nums[i]);
+      //  rank.resize(mx+1,0);
+        par.resize(mx+1);
+        for(int i=1;i<=mx;i++) par[i]=i;
+        for(int x:nums){
+            for(int i=2;i*i<=x;i++){ 
+                if(x%i==0){
+                    Union(x,i);
+                    Union(x,x/i);
+                }
+            }
+        }
+        vector<int> cntPar(mx+1,0);
+        int ans=0;
+        for(int i=0;i<n;i++) {
+            int parent=find(nums[i]);
+            cout<<parent<<" ";
+            cntPar[parent]++;
+            ans=max(ans,cntPar[parent]);
+        }
+        
+        return ans;
+    }
+};
+
+
+//Brute force Solution leading TLE
+class Solution {
+public:
+    //TC O(n^2) //TLE
+    //SC O(n*2)
+    void dfs(int src,int& cnt,vector<int>& vis,vector<int> adj[]){
+        vis[src]=1;cnt++;
+        for(auto x:adj[src]){
+            if(!vis[x]){
+                dfs(x,cnt,vis,adj);
+            }
+        }
+    }
+    int largestComponentSize(vector<int>& nums) {
+        int n=nums.size();
+        sort(nums.begin(),nums.end());
+        int ans=0;
+        vector<int> adj[n];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(i!=j){
+                    if(__gcd(nums[i],nums[j])>1) {
+                        adj[i].push_back(j);
+                    }
+                }
+            }
+        }
+        vector<int> vis(n,0);
+        for(int i=0;i<n;i++){
+            if(vis[i]==0){
+                int cnt=0;
+                dfs(i,cnt,vis,adj);
+                ans=max(ans,cnt);
+            }
+        }
+        return ans;
+    }
+};

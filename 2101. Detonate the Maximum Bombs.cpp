@@ -30,7 +30,7 @@ public:
         vector<int> vis(n);
         int ans=0;
         for(int i=0;i<n;i++){
-            dfs(i,vis,adj);
+            dfs(i,vis,adj); //You can also use bfs to find largest connected component
             int cnt=0;
             for(int j=0;j<n;j++) if(vis[j]==1) cnt++;
             ans=max(ans,cnt);

@@ -21,7 +21,7 @@ public:
                 if(i!=j){
                     ll x2=bombs[j][0], y2=bombs[j][1], r2=bombs[j][2];
                     ll dsq=(x1-x2)*(x1-x2) + (y1-y2)*(y1-y2);;
-                    if(dsq<=r1*r2){
+                    if(dsq<=r1*r1){
                         adj[i].push_back(j); //directed edge
                     }
                 }

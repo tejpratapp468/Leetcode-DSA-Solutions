@@ -45,17 +45,19 @@ public:
 //Method 2: DSU Solution (easy Solution)
 class Solution {
 public:
-     //Time Complexity O(MlogM + N) //M=No. of meetings , N=No. of Persons
-    //Space Complexity O( N)
     vector<int> par;
+    vector<int> rank;
     int find(int p){
         if(par[p]==p) return p;
         return par[p]=find(par[p]);
     }
-     void Union(int a,int b)
+    void Union(int a,int b)
     {
         int p1=find(a),p2=find(b);
-        par[p2]=p1;
+        int u=rank[p1],v=rank[p2];
+        if(u==v) par[p2]=p1,rank[p1]++;
+        else if(u>v) par[p2]=p1;
+        else par[p1]=p2;
     }
     
     
@@ -67,6 +69,7 @@ public:
     
     vector<int> findAllPeople(int n, vector<vector<int>>& meetings, int firstPerson) {
         par.resize(n);
+        rank.resize(n,0);
         for(int i=0;i<n;i++) par[i]=i;
         Union(0,firstPerson);
         
@@ -98,5 +101,3 @@ public:
         return ans;
     }
 };
-
-

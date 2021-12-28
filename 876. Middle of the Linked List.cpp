@@ -1,4 +1,4 @@
-//method 3 slow & fast pointe solution
+//method 1 slow & fast pointe solution
 class Solution {
 public:
     //TC O(n/2) => O(n) //one pass

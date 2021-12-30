@@ -1,7 +1,7 @@
 class Solution {
 public:
-    //TC O(k)
-    //SC O(1)
+    //Time Complexity O(k)
+    //Space Complexity O(1)
     int smallestRepunitDivByK(int k) {
         int unitD=k%10;
         if(unitD==0 || unitD==2 || unitD==4 || unitD==6 || unitD==8) return -1;
